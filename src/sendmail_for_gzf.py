@@ -22,8 +22,8 @@ def sendmail(subject,receiver,house2email):
         # 设置调试模式
         # server.set_debuglevel(1)
         # 登录实例化的邮件服务器
-        server.login("858513789@qq.com", "hmwkopeuduzbbdcj")
-        server.sendmail("858513789@qq.com", [receiver], msg.as_string())
+        server.login("user@qq.com", "key")
+        server.sendmail("user@qq.com", [receiver], msg.as_string())
         print("邮件发送成功")
     except smtplib.SMTPException:
         print("Error: 无法发送邮件")

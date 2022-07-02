@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>时间选择</title>
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+
+
+<div class="container">
+    <div class="row">
+        <div class="panel panel-success">
+            <!-- Default panel contents -->
+            <div class="panel-heading text-center">
+                <span>浦东公租房信息抓取工具</span>
+            </div>
+            <form action='' method="post" enctype="multipart/form-data">
+                {% csrf_token  %}   <!-- 防止跨站攻击 -->
+                <label>开始日期：</label><input name="front_start_time" type="date" min="2022-05-24" required value=''/>
+                <label>结束日期：</label><input name="front_ending_time" type="date"  max="2022-09-20" required value=''/>
+                <input type="submit" value="查询">
+            </form>
+            <p>
+                <tr>
+                    <th>查询日期</th>
+                    <th>{{ query_begin_data }}</th>
+                    <th>{{ query_ending_data }}</th>
+                </tr>
+            </p>
+            <!-- Table -->
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>序列</th>
+                    <th>日期</th>
+                    <th>房源名称</th>
+                    <th>抓取时间</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in houses %}
+                    <tr>
+                        <td>
+                            <span>{{ forloop.counter }}</span>
+                        </td>
+                        <td>
+                            <span>{{ item.date }}</span>
+                        </td>
+                        <td>{{ item.houseName }}</td>
+                        <td>{{ item.getTime }}</td>
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+
+        </div>
+
+        {#        分页展示#}
+        {#        <nav aria-label="Page navigation">#}
+        {#            <ul class="pagination">#}
+        {#                <li><a href="?page=1" aria-label="Previous"><span aria-hidden="true">首页</span></a></li>#}
+        {##}
+        {#                has_previous 判断是否有上一页#}
+        {#                {% if host_list.has_previous %}#}
+        {#                    previous_page_number 上一页的页码#}
+        {#                    <li><a href="?page={{ host_list.previous_page_number }}" aria-label="Previous"><span#}
+        {#                            aria-hidden="true">上一页</span></a></li>#}
+        {#                {% else %}#}
+        {#                    class="disabled" 禁止用户点击#}
+        {#                    <li class="disabled"><a href="" aria-label="Previous"><span aria-hidden="true">上一页</span></a></li>#}
+        {#                {% endif %}#}
+        {##}
+        {#                遍历页码的列表#}
+        {#                {% for i in pageRange %}#}
+        {#                    判断当前页码数等于底部页码时#}
+        {#                    {% if current_num == i %}#}
+        {#                        增加class,加深按钮#}
+        {#                        <li class="active"><a href="?page={{ i }}">{{ i }}</a></li>#}
+        {#                    {% else %}#}
+        {#                        href参数为简写,它会自动获取当前路径，并拼接参数#}
+        {#                        <li><a href="?page={{ i }}">{{ i }}</a></li>#}
+        {#                    {% endif %}#}
+        {##}
+        {#                {% endfor %}#}
+        {##}
+        {#                has_next 判断是否有下一页#}
+        {#                {% if host_list.has_next %}#}
+        {#                    next_page_number 下一页的页码#}
+        {#                    <li><a href="?page={{ host_list.next_page_number }}" aria-label="Next"><span#}
+        {#                            aria-hidden="true">下一页</span></a></li>#}
+        {#                {% else %}#}
+        {#                    class="disabled" 禁止用户点击#}
+        {#                    <li class="disabled"><a href="" aria-label="Next"><span aria-hidden="true">下一页</span></a></li>#}
+        {#                {% endif %}#}
+        {##}
+        {#                <li><a href="?page={{ paginator.num_pages }}" aria-label="Next"><span aria-hidden="true">最后一页</span></a>#}
+        {#                </li>#}
+        {##}
+        {#            </ul>#}
+        {#        </nav>#}
+        {#    </div>#}
+    </div>
+</body>
+</html>
